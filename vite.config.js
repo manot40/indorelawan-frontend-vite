@@ -1,5 +1,6 @@
 import fs from 'fs/promises';
 import svgr from 'vite-plugin-svgr';
+import eslint from 'vite-plugin-eslint';
 import react from '@vitejs/plugin-react';
 import { defineConfig, loadEnv } from 'vite';
 
@@ -45,7 +46,7 @@ export default defineConfig(({ mode }) => {
       alias: [{ find: /^~/, replacement: '' }],
       preserveSymlinks: true,
     },
-    plugins: [svgr(), react()],
+    plugins: [react(), svgr(), eslint()],
     esbuild: {
       loader: 'jsx',
       include: /src\/.*\.jsx?$/,
