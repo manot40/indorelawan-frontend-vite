@@ -4,15 +4,15 @@ import eslint from 'vite-plugin-eslint';
 import react from '@vitejs/plugin-react';
 import { defineConfig, loadEnv } from 'vite';
 
-const jsAsJsx = {
-  name: 'js-as-jsx',
-  setup(build) {
-    build.onLoad({ filter: /src\\.*\.js$/ }, async (args) => ({
-      loader: 'jsx',
-      contents: await fs.readFile(args.path, 'utf8'),
-    }));
-  },
-};
+// const jsAsJsx = {
+//   name: 'js-as-jsx',
+//   setup(build) {
+//     build.onLoad({ filter: /src\\.*\.js$/ }, async (args) => ({
+//       loader: 'jsx',
+//       contents: await fs.readFile(args.path, 'utf8'),
+//     }));
+//   },
+// };
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
@@ -54,7 +54,7 @@ export default defineConfig(({ mode }) => {
     },
     optimizeDeps: {
       esbuildOptions: {
-        plugins: [jsAsJsx],
+        loader: { '.js': 'jsx' },
       },
     },
   };
