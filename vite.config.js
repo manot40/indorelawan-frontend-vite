@@ -1,14 +1,18 @@
+import { defineConfig, loadEnv } from 'vite';
+
 import svgr from 'vite-plugin-svgr';
 import eslint from 'vite-plugin-eslint';
 import react from '@vitejs/plugin-react';
-import { defineConfig, loadEnv } from 'vite';
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   return {
     plugins: [react(), svgr(), eslint()],
+    // Tell rollup to not push global vars in production
     build: {
-      outDir: 'build',
+      rollupOptions: {
+        output: { globals: null },
+      },
     },
     // Symlinks support
     resolve: {
@@ -34,8 +38,10 @@ export default defineConfig(({ mode }) => {
         },
       },
     },
-    // Preserve legacy env and globar vars style
+    // Preserve legacy env and global vars style
     define: {
+      'global.console.log': 'window.console.log',
+      'global.setImmediate': 'window.setTimeout',
       'process.env': {
         NODE_ENV: JSON.stringify(mode),
         REACT_APP_BASE_URL: env.REACT_APP_BASE_URL,
