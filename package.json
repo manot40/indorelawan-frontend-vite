@@ -7,7 +7,7 @@
     "format": "prettier --write \"src/**/*.{js,jsx}\"",
     "start": "vite",
     "build": "vite build",
-    "serve": "vite serve --host --port 3000"
+    "serve": "vite preview --host --port 3000"
   },
   "dependencies": {
     "@ant-design/icons": "4.1.0",
