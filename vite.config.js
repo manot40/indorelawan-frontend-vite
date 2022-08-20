@@ -36,8 +36,6 @@ export default defineConfig(({ mode }) => {
     },
     // Preserve legacy env and globar vars style
     define: {
-      'global.console.log': console.log,
-      'global.setImmediate': setTimeout,
       'process.env': {
         NODE_ENV: JSON.stringify(mode),
         REACT_APP_BASE_URL: env.REACT_APP_BASE_URL,
