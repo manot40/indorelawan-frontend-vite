@@ -1,4 +1,5 @@
-import { defineConfig, loadEnv } from 'vite';
+import { loadEnv } from 'vite';
+import { defineConfig } from 'vitest/config';
 
 import svgr from 'vite-plugin-svgr';
 import eslint from 'vite-plugin-eslint';
@@ -8,6 +9,15 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   return {
     plugins: [react(), svgr(), eslint()],
+    // Vitest configuration
+    test: {
+      globals: true,
+      environment: 'jsdom',
+      setupFiles: ['./src/setupTests.js'],
+      coverage: {
+        exclude: ['node_modules/', 'src/setupTests.ts'],
+      },
+    },
     // Tell rollup to not push global vars in production
     build: {
       rollupOptions: {
